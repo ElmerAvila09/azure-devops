@@ -1,18 +1,22 @@
 name: My CI/CD Workflow
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest # Specifies the runner OS (you can choose a different one)
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2 # Checks out the repository's code
-
-    - name: Run make command
-      run: make hello
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.5
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.5
+    - name: Install dependencies
+      run:  |
+        make install
+    - name: Lint with pylint
+      run: make lint
+    - name: Test with pytest
+      run:  |
+        make test
