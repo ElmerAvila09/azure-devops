@@ -1,4 +1,4 @@
-name: My CI/CD Workflow
+name: Python application test with github actions
 
 on: [push]
 
